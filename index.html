@@ -11,60 +11,46 @@
   </head>
   <body>
     <!-- <model-viewer> HTML element -->
-    <model-viewer bounds="tight" enable-pan src="gltf/scene.gltf" ios-src="Small_Mango_1.usdz" ar ar-modes="scene-viewer webxr quick-look" camera-controls environment-image="neutral" shadow-intensity="1">
+    <model-viewer id="fruit-model" bounds="tight" enable-pan src="gltf/scene.gltf" ios-src="Small_Mango_1.usdz" ar ar-modes="webxr" camera-controls environment-image="neutral" shadow-intensity="1">
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
       </div>
       <button slot="ar-button" id="ar-button">
           View in AR
       </button>
-	  <img src="fiducia_logo1.png" id="fiducia-icon" align="center" style="width: 100px;padding-left: 20px;padding-top: 10px;"></a>
-	  <a href="#popup" onclick="showPopup('video')"><img src="noun-youtube-897674-DA0A23.png" id="youtube-icon" align="center" style="width: 50px;padding-left: 315px;padding-top: 150px;"></a>
-	  <a href="#popup" onclick="showPopup('text')"><img src="noun-info-1582929-275DBA.png" title="Wecome to Fiducia | AI" id="info-icon" align="center" style="width: 30px;padding-left: 325px;"></a>
-	  <!--<span id="info-text">Welcome to Fiducia | AI</span>-->
+	  <img src="fiducia_logo1.png" id="fiducia-icon" align="center" style="width: 100px;padding-left: 20px;padding-top: 10px;">
+	  <span style="display:none;padding-top: 40px;" align="center" id="span-info">Welcome to Fiducia AR experience</span>
+	  <img src="noun-youtube-897674-DA0A23.png" id="youtube-icon" align="center" style="width: 50px;padding-left: 315px;padding-top: 150px;">
+	  <!-- <img src="noun-info-1582929-275DBA.png" title="Wecome to Fiducia | AI" id="info-icon" align="center" style="width: 30px;padding-left: 325px;"> -->
+	  
+	  <iframe src="https://www.youtube.com/embed/212bRKJorEs" id="video-content" style="margin-left:50px;display:none;"></iframe>
+	  <br/><span style="margin-left:48%;display:none;" align="center" id="video-close"><img src="noun-close-1292415-CC3043.svg" style="width:30px;"></span>
     </model-viewer>  
-    
+    <script>
+		const modelViewerFruit = document.querySelector("model-viewer#fruit-model");
+		modelViewerFruit.addEventListener('load', () => {
+			const select = document.querySelector('#youtube-icon');
+			const videoClose = document.querySelector('#video-close');
+			select.addEventListener('click', () => {
+				document.querySelector('#video-content').style.display = '';
+				document.querySelector('#video-close').style.display = '';
+			});
+			videoClose.addEventListener('click', () =>{
+				document.querySelector('#video-content').style.display = 'none';
+				var iframe = document.querySelector('#video-content');
+				iframe.src = iframe.src;
+				document.querySelector('#video-close').style.display = 'none';
+			});
+		});
+		
+	</script>
+	  
 	
     <!-- Loads <model-viewer> for browsers: -->
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 	
-	<div id="popup1" class="overlay">
-		<div class="popup" id="popup">
-			<!-- This hides it. -->
-			<a class="close" href="#popup1" onclick="closePopup()">×</a>
-			<div class="content" id="content">
-				This is a test model, watch the youtube video to know more.
-			</div>
-			<div id="videoContent">
-				<iframe id="wine-video" src="https://www.youtube.com/embed/wf3WqjSBqXM"></iframe>
-			</div>
-		</div>
-	</div>
 	
-	
-	
-	<script>
-		var openVideo = function(){
-			//window.open("https://www.youtube.com/watch?v=7gquYRxLMFI", '_blank').focus();
-			document.getElementById("popup").style.display = '';
-		}
-		var showPopup = function(txt){
-			document.getElementById("popup1").style.display = '';
-			if(txt=='text'){
-				document.getElementById("videoContent").style.display = 'none';
-				document.getElementById("content").style.display = '';
-			}else{
-				document.getElementById("videoContent").style.display = '';
-				document.getElementById("content").style.display = 'none';
-			}
-			
-		}
-		var closePopup = function(){
-			var iframe = document.getElementById('wine-video');
-			iframe.src = iframe.src;
-		}
-		
-	</script>
+	  
 	<script src="script.js"></script>
   </body>
 </html>
